@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
             return insets;
         });
 
-        // Set views
+    
         addCityButton = findViewById(R.id.buttonAddCity);
         cityListView = findViewById(R.id.listviewCities);
 
-        // create city array
+        
         cityArrayList = new ArrayList<>();
         cityArrayAdapter = new CityArrayAdapter(this, cityArrayList);
         cityListView.setAdapter(cityArrayAdapter);
@@ -66,8 +66,6 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
                     .setMessage("Delete " + cityToDelete.getName() + " " + cityToDelete.getProvince() + "?")
                     .setPositiveButton("Delete", (dialog, which) -> {
                         deleteCityFromFirestore(cityToDelete);
-                        // DO NOT manually remove from the list here.
-                        // Your snapshot listener will refresh the list after Firestore updates.
                     })
                     .setNegativeButton("Cancel", null)
                     .show();
@@ -95,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
             }
         });
 
-        // set listeners
+   
         addCityButton.setOnClickListener(view -> {
             CityDialogFragment cityDialogFragment = new CityDialogFragment();
             cityDialogFragment.show(getSupportFragmentManager(),"Add City");
@@ -115,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
         city.setProvince(year);
         cityArrayAdapter.notifyDataSetChanged();
 
-        // Updating the database using delete + addition
+    
     }
 
     @Override
@@ -129,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
     }
 
     private void deleteCityFromFirestore(City city) {
-        // You used city name as the document ID in addCity()
         citiesRef.document(city.getName()).delete()
                 .addOnSuccessListener(unused -> Log.d("Firestore", "Deleted: " + city.getName()))
                 .addOnFailureListener(e -> Log.e("Firestore", "Delete failed", e));
