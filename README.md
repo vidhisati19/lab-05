@@ -10,6 +10,7 @@
 N/A
 
 ## Verbal Collaboration
+N/A
 
 | Student Name | CCID     |
 | ------------ | -------- |
